@@ -159,8 +159,12 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-data/
-output/
-
 bin/
 .vscode/
+
+# Project data
+
+data/
+audio_per_labels/
+mfcc/
+share/

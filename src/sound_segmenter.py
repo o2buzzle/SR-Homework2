@@ -2,13 +2,19 @@ import os
 import pydub
 import shutil
 
-shutil.rmtree("output")
-os.mkdir("output")
-os.mkdir("output/audio")
+from common import *
 
-LABELS = ["len", "xuong", "trai", "phai", "nhay", "ban", "A", "B", "sil"]
+try:
+    shutil.rmtree("audio_per_labels")
+except FileNotFoundError:
+    pass
+
+
+os.mkdir("audio_per_labels")
+os.mkdir("audio_per_labels/audio")
+
 for label in LABELS:
-    os.mkdir(f"output/audio/{label}")
+    os.mkdir(f"audio_per_labels/audio/{label}")
 
 
 class SoundSegment:
@@ -40,4 +46,6 @@ for file in file_names:
     for order, label in enumerate(labels):
         audio = pydub.AudioSegment.from_wav(f"data/audio/{file}.wav")
         audio = audio[int(label.start * 1000) : int(label.end * 1000)]
-        audio.export(f"output/audio/{label.label}/{file}_{order+1}.wav", format="wav")
+        audio.export(
+            f"audio_per_labels/audio/{label.label}/{file}_{order+1}.wav", format="wav"
+        )
