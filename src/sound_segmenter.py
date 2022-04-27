@@ -39,6 +39,8 @@ for file in file_names:
     labels = []
     with open(f"data/labels/{file}.txt", "r") as f:
         for line in f:
+            if line.strip() == "":
+                continue
             start, stop, label = line.split("\t")
             labels.append(SoundSegment(float(start), float(stop), label.strip()))
 
